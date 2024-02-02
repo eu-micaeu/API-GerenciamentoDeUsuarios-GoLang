@@ -13,17 +13,17 @@ import (
 
 func NewDB() (*sql.DB, error) {
 
-	dbUser := "root"
+	dbUser := "postgres"
 
-	dbPassword := "c9N1ydwtNIlvwjl8LxHQPCgQ3xmXrcvg"
+	dbPassword := "12345678"
 
-	dbHost := "dpg-cmgs7b6n7f5s739moo2g-a.oregon-postgres.render.com"
+	dbHost := "localhost"
 
 	dbPort := "5432"
 
-	dbName := "vocatito"
+	dbName := "postgres"
 
-	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=require", dbUser, dbPassword, dbHost, dbPort, dbName)
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", dbUser, dbPassword, dbHost, dbPort, dbName)
 
 	db, err := sql.Open("postgres", dsn)
 
@@ -31,12 +31,6 @@ func NewDB() (*sql.DB, error) {
 
 		return nil, fmt.Errorf("erro ao conectar ao banco de dados: %v", err)
 
-	}
-
-	if err = db.Ping(); err != nil {
-
-		return nil, fmt.Errorf("erro ao pingar o banco de dados: %v", err)
-		
 	}
 
 	log.Println("Conectado ao banco de dados com sucesso!")

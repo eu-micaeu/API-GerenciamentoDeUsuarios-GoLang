@@ -18,7 +18,7 @@ func main() {
 		panic(err)
 	}
 
-	routes.UsuarioRoutes(r, db)
+	routes.UserRoutes(r, db)
 
 	r.Run()
 }
