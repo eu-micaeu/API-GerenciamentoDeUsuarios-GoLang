@@ -11,9 +11,13 @@ func UserRoutes(r *gin.Engine, db *sql.DB) {
 	
 	userHandler := handlers.User{}
 
-	r.POST("/login", userHandler.Entrar(db))
+	r.GET("/login", userHandler.Entrar(db))
 
 	r.POST("/register", userHandler.Registrar(db))
+
+	r.PUT("/update", userHandler.Atualizar(db))
+
+	r.DELETE("/delete", userHandler.Deletar(db))
 
 	r.POST("/exit", userHandler.Sair(db))
 

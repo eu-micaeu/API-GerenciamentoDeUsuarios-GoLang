@@ -1,49 +1,23 @@
 package handlers
 
 import (
-	"database/sql"
-	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
 type Claims struct {
+
 	User_ID int `json:"id_usuario"`
+
 	jwt.StandardClaims
+
 }
 
 var jwtKey = []byte("my_secret_key")
 
-// Função para verificar se o token está na tabela de tokens inválidos
-func tokenEstaNaTabelaDeTokensInvalidos(db *sql.DB, tokenString string) bool {
-
-	query := "SELECT COUNT(*) FROM tokens_invalidos WHERE token_invalido = $1"
-
-	var count int
-
-	err := db.QueryRow(query, tokenString).Scan(&count)
-
-	if err != nil {
-
-		log.Println("Erro ao consultar a tabela de tokens inválidos:", err)
-
-		return true
-
-	}
-
-	return count > 0
-
-}
-
 // Função com finalidade de validação do token para as funções do usuário.
-func (u *User) ValidarOToken(db *sql.DB, tokenString string) (int, error) {
-
-	if tokenEstaNaTabelaDeTokensInvalidos(db, tokenString) {
-
-		return 0, nil
-
-	}
+func (u *User) ValidarOToken(tokenString string) (int, error) {
 
 	claims := &Claims{}
 
@@ -89,4 +63,5 @@ func GerarOToken(usuario User) (string, error) {
 	}
 
 	return tokenString, nil
+	
 }
